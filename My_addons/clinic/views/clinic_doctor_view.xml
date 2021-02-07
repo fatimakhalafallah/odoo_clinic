@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- """Create Form View"""  and notebook as tabs(pages)  Kanban view as cards-->
+
+        <record id="clinic_doctor_form_view" model="ir.ui.view">
+            <field name="name">clinic.doctor.form</field>
+            <field name="model">clinic.doctor</field>
+            <field name="arch" type="xml">
+                <form string="Doctor">
+                    <sheet>
+                        <div style="float:right;">
+                            <button class="oe_stat_button" 
+                                     name="view_waiting_booking"
+                                     icon="fa-building-o"
+                                     type="object">
+                                     <field name="wait_d_booking" widget="statinfo" nolabel="1" style="color:red !important;font-size:13px;"/>
+                                     <strong>&#160;Bookings</strong>
+                            </button>
+                        </div>
+                        <div style="width:100%;">
+                            <div style="width:10%;float:left;">
+                                <field name="image" widget="image"/>
+                            </div>
+                            <div style="width:78%;float:right;">
+                                <group colspan="2" col="2">
+                                    <field name="name" nolabel="1" style="font-size:32px;"/>
+                                </group>
+                                <table style="width:100%;">
+                                    <tr style="width:100%;">
+                                        <td style="width:25%;font-size:13px;padding:2px;">
+                                            <field name="first_name" placeholder="First Name"/>
+                                        </td>
+                                        <td style="width:25%;font-size:13px;padding:2px;">
+                                            <field name="second_name" placeholder="Second Name"/>
+                                        </td>
+                                        <td style="width:25%;font-size:13px;padding:2px;">
+                                            <field name="third_name" placeholder="Third Name"/>
+                                        </td>
+                                        <td style="width:25%;font-size:13px;padding:2px;">
+                                            <field name="forth_name" placeholder="Fourth Name"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <br></br><br></br>
+                        <group colspan="4" col="4">
+                            <field name="gender"/>
+                            <field name="birth_day"/>
+                            <field name="country_id"/>
+                            <field name="phone"/>
+                        </group>
+                        <table style="width:50%;">
+                            <tr>
+                                <td style="width:40%;font-size:13px;padding:2px;">
+                                </td>
+                                <td style="width:20%;padding:2px;">
+                                    <center>
+                                        years
+                                    </center>
+                                </td>
+                                <td style="width:20%;padding:2px;">
+                                    <center>
+                                        months
+                                    </center>
+                                </td>
+                                <td style="width:20%;padding:2px;">
+                                    <center>
+                                        days
+                                    </center>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width:40%;font-size:13px;padding:2px;">
+                                    <b>
+                                        Age
+                                    </b>
+                                </td>
+                                <td style="width:20%;padding:2px;">
+                                    <center>
+                                        <field name="age_year" />
+                                    </center>
+                                </td>
+                                <td style="width:20%;padding:2px;">
+                                    <center>
+                                        <field name="age_month" />
+                                    </center>
+                                </td>
+                                <td style="width:20%;padding:2px;">
+                                    <center>
+                                        <field name="age_day" />
+                                    </center>
+                                </td>
+                            </tr>
+                        </table>
+                        <notebook>
+                            <page string="Patients">
+                                <group colspan="2" col="2">
+                                    <field name="patient_ids" nolabel="1"/>
+                                </group>
+                            </page>
+                            <page string="Qualifications">
+                                <group colspan="4" col="4">
+                                    <field name="specialty"/>
+                                    <field name="academic_degree"/>
+                                    <field name="university"/>
+                                    <field name="graduate_year"/>
+                                </group>
+                                <group colspan="2" col="2">
+                                    <field name="qualifications" nolabel="1"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- """Create kanban View""" -->
+
+        <record id="clinic_doctor_kanban_view" model="ir.ui.view">
+            <field name="name">clinic.doctor.kanban</field>
+            <field name="model">clinic.doctor</field>
+            <field name="arch" type="xml">
+                <kanban >
+                    <field name='id'/>
+                    <field name="image"/>
+                    <field name="specialty"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_global_click" style=" border: 1px solid #d9d7d7; border-radius: 5px !important;">
+                                <div class="o_kanban_image">
+                                    <img t-att-src="kanban_image('clinic.doctor','image',record.id.raw_value)" alt="Image"/>
+                                </div>
+                                <div class="oe_kanban_details">
+                                    <ul>
+                                        <li style="font-size:14px;color:blue !important;"><b>Name :</b> <field name="name"/></li>
+                                        <li><b>Specialty :</b> <field name="specialty"/></li>
+                                    </ul>
+                                </div>
+                                <div class="o_kanban_record_bottom">
+                                    <div class="oe_kanban_bottom_left" style="margin-left:8px;">
+                                        <b> A.D :</b> <field name="academic_degree"/>
+                                    </div>
+                                    <div class="oe_kanban_bottom_right" style="margin-right:40px;">
+                                        <b> Age :</b> <field name="age_year"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+
+        <!-- """Create Tree View""" -->
+
+        <record id="clinic_doctor_tree_view" model="ir.ui.view">
+            <field name="name">clinic.doctor.tree</field>
+            <field name="model">clinic.doctor</field>
+            <field name="arch" type="xml">
+                <tree string="doctors">
+                    <field name="name"/>
+                    <field name="gender"/>
+                    <field name="age_year"/>
+                    <field name="phone"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- """Create Action View""" -->
+
+        <record id="clinic_doctor_action_view" model="ir.actions.act_window">
+            <field name="name">Doctors</field>
+            <field name="res_model">clinic.doctor</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,kanban</field>
+            <field name="view_id" ref="clinic_doctor_kanban_view"/>
+        </record>
+
+        <!-- """Create the Configration menu """ -->
+
+        <menuitem id="clinic_doctor_main_menu"
+            name="Doctors" sequence="10"
+            parent="clinic_root_menu"
+        />
+
+        <!-- """Create the Company's Projects menu""" -->
+
+        <menuitem
+            name="Doctors"
+            parent="clinic_doctor_main_menu"
+            action="clinic_doctor_action_view"
+            id="doctors_action_menu"
+            sequence="15"
+        />
+
+    </data>
+</odoo>

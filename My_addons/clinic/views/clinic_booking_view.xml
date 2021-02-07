@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- """Create Form View""" -->
+
+        <record id="clinic_booking_form_view" model="ir.ui.view">
+            <field name="name">clinic.booking.form</field>
+            <field name="model">clinic.booking</field>
+            <field name="arch" type="xml">
+                <form string="Doctor">
+                    <header>
+                        <button name="action_to_wait_d_meeting" states="draft" string="Confirm" type="object" class="oe_highlight" style="margin-left:2px;"/>
+                        <button name="clinic_ward_action" states="wait_d_meeting" string="Stay On Ward" type="object" class="oe_highlight" style="margin-left:2px;"/>
+                        <button name="medical_bill_action" states="wait_d_meeting" string="Medical Bill" type="object" class="oe_highlight" style="margin-left:2px;"/>
+                        <field name="state" widget="statusbar" readonly="1"/>
+                    </header>
+                    <sheet>
+                        <group colspan="4" col="4">
+                            <field name="patient_id" />
+                            <field name="doctor_id" />
+                            <field name="date" />
+                            <field name="meeting_date" />
+                            <field name="paid_fees" />
+                        </group>
+                        <group colspan="4" col="4" string="Note">
+                            <field name="note" nolabel="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        
+
+        <!-- """Create Tree View""" -->
+
+        <record id="clinic_booking_tree_view" model="ir.ui.view">
+            <field name="name">clinic.booking.tree</field>
+            <field name="model">clinic.booking</field>
+            <field name="arch" type="xml">
+                <tree string="doctors">
+                    <field name="patient_id" />
+                    <field name="doctor_id" />
+                    <field name="date" />
+                    <field name="meeting_date" />
+                    <field name="paid_fees" />
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- """Create Action View""" -->
+
+        <record id="clinic_booking_action_view" model="ir.actions.act_window">
+            <field name="name">Booking</field>
+            <field name="res_model">clinic.booking</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="clinic_booking_tree_view"/>
+        </record>
+
+        <!-- """Create the Booking Root menu """ -->
+
+        <menuitem id="clinic_booking_root_menu"
+            name="Booking" sequence="1"
+        />
+
+        <!-- """Create the Booking Mani menu""" -->
+
+        <menuitem
+            name="Booking"
+            parent="clinic_booking_root_menu"
+            action="clinic_booking_action_view"
+            id="clinic_booking_action_menu"
+            sequence="2"
+        />
+
+    </data>
+</odoo> 

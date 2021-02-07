@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+		<template id="clinic_booking_report_temp">
+		            <t t-call="web.html_container">
+		                <t t-foreach="docs" t-as="doc">
+		                    <t t-call="web.external_layout">
+		                        <div class="page">  
+		                        	<table style="width:100%;">
+		                        		<tr>
+		                        			<td>
+		                        				<b style="font-size:15px;">
+		                        					Patient Name:
+		                        				</b>
+		                        			</td>
+		                        			<td>
+		                        				<n style="font-size:15px";>
+		                        					<span t-field="doc.patient_id.name"/>
+		                        				</n>
+		                        			</td>
+		                        			<td style="font-size:15px;">
+		                        				<b style="font-size:15px;">
+		                        					Doctor Name:
+		                        				</b>
+		                        			</td>
+		                        			<td>
+		                        				<n style="font-size:15px">
+		                        					<span t-field="doc.doctor_id.name"/>
+		                        				</n>
+		                        			</td>
+		                        		</tr>
+		                        		<tr>
+		                        			<td>
+		                        				<b style="font-size:15px;">
+		                        					Booking Date:
+		                        				</b>
+		                        			</td>
+		                        			<td>
+		                        				<n style="font-size:15px">
+		                        					<span t-field="doc.date"/>
+		                        				</n>
+		                        			</td>
+		                        			<td>
+		                        				<b style="font-size:15px;">
+		                        					Meeting Date:
+		                        				</b>
+		                        			</td>
+		                        			<td>
+		                        				<n style="font-size:15px;">
+		                        					<span t-field="doc.meeting_date"/>
+		                        				</n>
+		                        			</td>	
+		                        		</tr>
+		                        	</table>
+		                        </div>
+		                    </t>
+		                </t>
+		            </t>
+		        </template>
+
+		        <report
+		            id="clinic_booking_report_action"
+		            string="Booking Report"
+		            model="clinic.booking"
+		            report_type="qweb-pdf"
+		            name="clinic.clinic_booking_report_temp"
+		            menu="True"
+		        />
+
+		       <record id="paperformat_euro_no_margin" model="report.paperformat">
+		            <field name="name">European A4</field>
+		            <field name="default" eval="True" />
+		            <field name="format">A4</field>
+		            <field name="page_height">0</field>
+		            <field name="page_width">0</field>
+		            <field name="orientation">Portrait</field>
+		            <field name="margin_top">40</field>
+		            <field name="margin_bottom">28</field>
+		            <field name="margin_left">7</field>
+		            <field name="margin_right">7</field>
+		            <field name="header_line" eval="False" />
+		            <field name="header_spacing">0</field>
+		            <field name="dpi">90</field>
+		        </record>
+	</data>
+</odoo>

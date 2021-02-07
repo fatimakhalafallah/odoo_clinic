@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+        <!-- ...Define Template... -->
+
+        <template id="booking_custom_report_temp">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <table style="width:100%;">
+                            <tr style="font-size:18px; border: 2px solid black;text-align: center;">
+                                <td style="font-size:14px; border: 2px solid black;padding-top:5px;padding-bottom:5px;">
+                                    <b>
+                                        Doctor
+                                    </b>
+                                </td>
+                                <td style="font-size:14px; border: 2px solid black;padding-top:5px;padding-bottom:5px;">
+                                    <b>
+                                        Paient
+                                    </b>
+                                </td>
+                                <td style="font-size:14px; border: 2px solid black;padding-top:5px;padding-bottom:5px;">
+                                    <b>
+                                        Booking Date
+                                    </b>
+                                </td>
+                                <td style="font-size:14px; border: 2px solid black;padding-top:5px;padding-bottom:5px;">
+                                    <b>
+                                        Meeting Date
+                                    </b>
+                                </td>
+                                <td style="font-size:14px; border: 2px solid black;padding-top:5px;padding-bottom:5px;">
+                                    <b>
+                                        State
+                                    </b>
+                                </td>
+                            </tr>
+                            <t t-foreach="data" t-as="object_line">
+                                <tr style="font-size:18px; border: 2px solid black;text-align: center;">
+                                    <td style="font-size:14px; border: 2px solid black;padding-top:5px;padding-bottom:5px;">
+                                        <n>
+                                            <span t-esc="object_line.doctor_id.name" />
+                                        </n>
+                                    </td>
+                                    <td style="font-size:14px; border: 2px solid black;padding-top:5px;padding-bottom:5px;">
+                                        <n>
+                                            <span t-esc="object_line.patient_id.name" />
+                                        </n>
+                                    </td>
+                                    <td style="font-size:14px; border: 2px solid black;padding-top:5px;padding-bottom:5px;">
+                                        <n>
+                                            <span t-esc="object_line.date" />
+                                        </n>
+                                    </td>
+                                    <td style="font-size:14px; border: 2px solid black;padding-top:5px;padding-bottom:5px;">
+                                        <n>
+                                            <span t-esc="object_line.meeting_date" />
+                                        </n>
+                                    </td>
+                                    <td style="font-size:14px; border: 2px solid black;padding-top:5px;padding-bottom:5px;">
+                                        <n>
+                                            <span t-esc="object_line.state" />
+                                        </n>
+                                    </td>
+                                </tr>
+                            </t>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </template>
+
+        <!-- """create report """ -->
+
+        <report
+            id="booking_custom_report_action"
+            string="Booking Report"
+            model="clinic.booking"
+            report_type="qweb-pdf"
+            name="clinic.booking_custom_report_temp"
+            menu="False"
+        />
+         <record id="paperformat_euro_no_margin" model="report.paperformat">
+            <field name="name">European A4</field>
+            <field name="default" eval="True" />
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">40</field>
+            <field name="margin_bottom">28</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">0</field>
+            <field name="dpi">90</field>
+        </record>
+
+</odoo>
